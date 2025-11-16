@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple HTML Form</title>
+</head>
+<body>
+
+  <h2>Registration Form</h2>
+  
+  {{y}}
+
+  <form action="{% url 'registerdata' %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    
+    <!-- Name -->
+    <label for="name">Full Name:</label><br>
+    <input type="text" id="name" name="name" value="{{data.name}}" required><br><br>
+
+    <!-- Email -->
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email" value="{{data.email}}" required><br><br>
+
+    <!-- Contact -->
+    <label for="contact">Contact Number:</label><br>
+    <input type="tel" id="contact" name="contact"  value="{{data.contact}}"><br><br>
+
+    <!-- Details -->
+    <label for="details">Details / About You:</label><br>
+    <textarea id="details" name="details" value="{{data.details}}" rows="4" cols="40"></textarea><br><br>
+
+    <!-- Gender -->
+    <label>Gender:</label><br>
+    <input type="radio" id="male" name="gender" value="male">
+    <label for="male">Male</label><br>
+    <input type="radio" id="female" name="gender" value="female">
+    <label for="female">Female</label><br>
+    <input type="radio" id="other" name="gender" value="other">
+    <label for="other">Other</label><br><br>
+
+    <!-- Qualification -->
+    <label>Qualification:</label><br>
+    <input type="checkbox" id="10th" name="qualification" value="10th">
+    <label for="10th">10th</label><br>
+    <input type="checkbox" id="12th" name="qualification" value="12th">
+    <label for="12th">12th</label><br>
+    <input type="checkbox" id="ug" name="qualification" value="ug">
+    <label for="ug">Undergraduate</label><br>
+    <input type="checkbox" id="pg" name="qualification" value="pg">
+    <label for="pg">Postgraduate</label><br><br>
+
+    <!-- Higher Education -->
+    <label for="education">Higher Education:</label><br>
+    <select id="education" name="education">
+      <option value="">--Select--</option>
+      <option value="bsc">B.Sc</option>
+      <option value="ba">B.A</option>
+      <option value="btech">B.Tech</option>
+      <option value="msc">M.Sc</option>
+      <option value="ma">M.A</option>
+      <option value="mtech">M.Tech</option>
+      <option value="mba">MBA</option>
+      <option value="phd">PhD</option>
+    </select><br><br>
+
+    <!-- File Uploads -->
+    <label for="profile_pic">Upload Profile Picture:</label><br>
+    <input type="file" id="profile_pic" name="profile_pic" value="{{data.profile_pic}}" accept="image/*"><br><br>
+
+    <label for="document">Upload Document:</label><br>
+    <input type="file" id="document" name="document" value="{{data.document}}" accept=".pdf,.doc,.docx"><br><br>
+
+    <label for="audio">Upload Audio:</label><br>
+    <input type="file" id="audio" name="audio" value="{{data.audio}}" accept="audio/*"><br><br>
+
+    <label for="video">Upload Video:</label><br>
+    <input type="file" id="video" name="video" value="{{data.video}}" accept="video/*"><br><br>
+    {{pmsg}}
+    <label for="pass">Password</label><br>
+    <input type="pass"  name="password" ><br><br>
+
+    <label for="cpass">C Password</label><br>
+    <input type="cpass"  name="cpassword"><br><br>
+
+    <!-- Buttons -->
+    <button type="submit">Submit</button>
+    <button type="reset">Reset</button>
+
+  </form>
+
+</body>
+</html>

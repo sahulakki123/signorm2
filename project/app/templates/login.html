@@ -1,0 +1,17 @@
+{{x}}
+
+<h1>Log in</h1>
+<h4><a href="{% url 'register' %}">register</a></h4>
+
+<form action="{% url 'logindata' %}" method="POST">
+    {% csrf_token %}
+    
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email" required><br><br>
+    {{msss}}
+    <label for="pass">Password</label><br>
+    <input type="pass"  name="password" ><br><br>
+
+    <button type="submit">Login</button>
+
+</form>
