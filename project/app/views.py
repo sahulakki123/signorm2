@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render ,redirect
 from.models import student
 from django.http import HttpResponse
+from django.urls import reverse
+from urllib.parse import urlencode
 
 # Create your views here.
 
@@ -68,8 +70,11 @@ def logindata(req):
             password = userdata.password
             # print(name,email,contact,gender,details,qualification,education,profile_pic,document,audio,video,password)
             if password==lp:
-                data ={'name':name,'email':email,'contact':contact}
-                return render(req, 'dashboard.html',data)
+                base_url=reverse('dashboard')
+                data ={'name':name,'email':email,'contact':contact,'password':password}
+                # return render(req, 'dashboard.html',data)
+                url = f'{base_url}?{data}'
+                return redirect(url)
                 
             else:
                 msss='Email & password not matched'
@@ -78,3 +83,19 @@ def logindata(req):
         else:
             msgg="Email id not register"
             return render(req , 'register.html',{'msgg':msgg})
+
+def dashboard(req):
+    print(req.GET)
+    e=req.GET.get('email')
+    p=req.GET.get('password')
+    print(e,p)
+    if e and p:
+        data={'name':req.GET.get('name'),'contact':req.GET.get('contact'),
+              'gender':req.GET.get('gender'),'details':req.GET.get('details'),
+              'qualification':req.GET.get('qualification'),'education':req.GET.get('education'),
+              'profile_pic':req.GET.get('profile_pic'),'document':req.GET.get('document'),
+              'audio':req.GET.get('audio'), 'video':req.GET.get('video'), 'password':req.GET.get('password')}
+        return render(req, 'dashboard.html',data)
+    else:
+        return render(req, 'login.html')
+    
