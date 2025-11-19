@@ -3,15 +3,11 @@
 <h1>Log in</h1>
 <h4><a href="{% url 'register' %}">register</a></h4>
 
-<form action="{% url 'logindata' %}" method="POST">
+{{x}} <br>
+<form action="{% url 'logindata' %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    
-    <label for="email">Email:</label><br>
-    <input type="email" id="email" name="email" required><br><br>
-    {{msss}}
-    <label for="pass">Password</label><br>
-    <input type="pass"  name="password" ><br><br>
-
-    <button type="submit">Login</button>
-
+  <p>{{msg}}</p>
+  Email:  <input type="text" name="loginemail" value="{{email}}"> <br><br>
+  Password:  <input type="text" name="loginpassword"> <br><br>
+  <input type="submit">
 </form>
