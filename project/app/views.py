@@ -46,14 +46,14 @@ def login(req):
     return render(req,'login.html')          
 
 def logindata(req):
-    data=student.objects.all()
     if req.method=='POST':
         # print(req.POST)
         le=req.POST.get('email')
         lp=req.POST.get('password')
         # print(le,lp)
         user =student.objects.filter(email=le)
-        if user:
+        if user:    
+            print('Hello') 
             userdata=student.objects.get(email=le)
             name = userdata.name
             email = userdata.email
@@ -70,13 +70,14 @@ def logindata(req):
             password = userdata.password
             # print(name,email,contact,gender,details,qualification,education,profile_pic,document,audio,video,password)
             if password==lp:
+                print('hello')
                 base_url=reverse('dashboard')
-                data ={'name':name,'email':email,'contact':contact,'password':password}
+                data ={'name':name,'email':email,'contact':contact,'gender':gender,'password':password}
                 # return render(req, 'dashboard.html',data)
                 url = f'{base_url}?{data}'
-                return redirect(url)
-                
+                return redirect(url)  
             else:
+                print('Hello')
                 msss='Email & password not matched'
                 return render(req, 'login.html',{'msss':msss})
             
@@ -85,17 +86,27 @@ def logindata(req):
             return render(req , 'register.html',{'msgg':msgg})
 
 def dashboard(req):
-    print(req.GET)
     e=req.GET.get('email')
     p=req.GET.get('password')
-    print(e,p)
     if e and p:
-        data={'name':req.GET.get('name'),'contact':req.GET.get('contact'),
-              'gender':req.GET.get('gender'),'details':req.GET.get('details'),
-              'qualification':req.GET.get('qualification'),'education':req.GET.get('education'),
-              'profile_pic':req.GET.get('profile_pic'),'document':req.GET.get('document'),
-              'audio':req.GET.get('audio'), 'video':req.GET.get('video'), 'password':req.GET.get('password')}
+        n=req.GET.get('name')
+        c=req.GET.get('contact')
+        g=req.GET.get('gender')
+        d=req.GET.get('details')
+        q=req.GET.get('qualification')
+        ed=req.GET.get('education')
+        i=req.GET.get('profile_pic')
+        do=req.GET.get('document')
+        a=req.GET.get('audio')
+        v=req.GET.get('video')
+        data={'name':n,'contact':c,
+              'gender':g,'details':d,
+              'qualification':q,'education':ed,
+              'profile_pic':i,'document':do,
+              'audio':a, 'video':v, 'email':e,'password':p}
         return render(req, 'dashboard.html',data)
     else:
-        return render(req, 'login.html')
+        # return render(req, 'login.html')
+        url =reverse('login')
+        return redirect(url)
     
