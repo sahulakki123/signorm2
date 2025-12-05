@@ -1,9 +1,9 @@
 from django.shortcuts import render,redirect
 from .models import student
-from django.urls import reverse
+from django.urls import reverse 
 from urllib.parse import urlencode
 
-# Create your views here.
+# Create your views he.
 def landing(req):
     return render(req,'landing.html')
 
@@ -57,13 +57,14 @@ def logindata(req):
         user=student.objects.filter(email=le)
         if user:
             userdata=student.objects.get(email=le)
+            id = userdata.id
             name=userdata.name
             email=userdata.email
             password=userdata.password
             contact=userdata.contact
             image=userdata.profile_pic
             print(name,email,password,image)
-            data={'name':name,'email':email,'contact':contact,'password':password,'image':image}
+            data={'id': id , 'name':name,'email':email,'contact':contact,'password':password,'image':image}
             if lp==password:
                 # return render(req,'dashboard.html',{'data':data})
                 baseurl=reverse('dashboard')
@@ -83,15 +84,31 @@ def dashboard(req):
     p=req.GET.get('password')
     print(e,p)
     if e and p:
+        id=req.GET.get('id')
         n=req.GET.get('name')
         e=req.GET.get('email')
         p=req.GET.get('password')
         c=req.GET.get('contact')
         i=req.GET.get('image')
         print(n,e,c,p,i)
-        data={'name':n,'email':e,'contact':c,'password':p,'image':i}
+        data={'id': id ,'name':n,'email':e,'contact':c,'password':p,'image':i}
         return render(req,'dashboard.html',{'data':data})
     else:
         # return render(req,'login.html')
         url=reverse('login')
         return redirect(url)
+    
+def query(req,pk):
+    userdata= student.objects.get(id=pk)
+    data={
+    'id': userdata.id,
+    'name':userdata.name,
+    'email':userdata.email,
+    'password':userdata.password,
+    'contact':userdata.contact,
+    'image':userdata.profile_pic
+    }
+    return render(req,)
+    
+    
+    

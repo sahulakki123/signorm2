@@ -26,5 +26,6 @@ urlpatterns = [
     path('logindata/', views.logindata, name='logindata'),
     path('login/', views.login, name='login'),
     path('dashboard/',views.dashboard, name='dashboard'),
+    path('dashboard/query/<int:pk>/',views.query, name='query'),
     # path('showdata/', views.showdata, name='showdata'),
 ]
